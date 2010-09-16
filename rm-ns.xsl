@@ -28,6 +28,9 @@
   <template match="/">
     <choose>
       <when test="namespace-uri(*[1]) = $namespace">
+        <message>
+          WARNING! The root node is targeted for deletion. Wrapping the remaining document.
+        </message>
         <root xmlns="">
           <apply-templates xmlns="http://www.w3.org/1999/XSL/Transform" />
         </root>
