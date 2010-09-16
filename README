@@ -32,6 +32,69 @@ B e h a v i o u r :
   result could be invalid XML. Therefore the whole document is embedded in a
   new root element <root /> in the empty namespace.
 
+H o w   t o   D e p l o y :
+===========================
+
+XSLT version:
+  a) in Firefox: Add the following lines to your XML file:
+
+     <?xslt-param name="namespace" value="urn:my-unwanted-namespace"?>
+     <?xml-stylesheet type="text/xsl" href="rm-ns.xsl"?>
+
+     (other browsers don't support <?xslt-param ?>, you have to touch
+     rm-ns.xsl itself there.)
+
+  b) via a command line XSLT processor:
+
+     $ saxon -s:source.xml -xsl:rm-ns.xsl -o:out.xml \
+       namespace='urn:my-unwanted-namespace'
+
+     $ xalan -IN source.xml -XSL rm-ns.xsl -OUT out.xml -PARAM namespace \
+       'urn:my-unwanted-namespace'
+
+  c) inside PHP:
+
+     <?php
+     $xsl = new DOMDocument;
+     $xsl->load('rm-ns.xsl');
+     $proc = new XSLTProcessor;
+     $proc->importStyleSheet($xsl);
+
+     $xml = new DOMDocument;
+     $xml->load('source.xml');
+     $proc->setParameter('', 'namespace', 'urn:my-unwanted-namespace');
+     $proc->transformToURI($xml, 'file:///tmp/output.xml');
+     ?>
+
+  d) in Python with libxml2 and libxslt bindings:
+
+     #! /usr/bin/env python
+
+     import libxml2, libxslt
+
+     styledoc = libxml2.parseFile("rm-ns.xsl")
+     style = libxslt.parseStylesheetDoc(styledoc)
+     doc = libxml2.parseFile('source.xml')
+     result = style.applyStylesheet(doc, {"namespace":
+                                          "'urn:my-unwanted-namespace'"})
+
+     out = open('output.xml', 'w')
+     out.write(result.serialize())
+
+     style.freeStylesheet()
+     doc.freeDoc()
+     result.freeDoc()
+     out.close()
+
+
+JS version:
+  Add the following lines to your XML file:
+
+  <script type="text/javascript" src="rm-ns.js"></script>
+  <script type="text/javascript">remove_namespace("urn:my-unwanted-namespace");</script>
+
+  Presto! Namespace removed.
+
 L i c e n s e :
 ===============
 
