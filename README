@@ -15,10 +15,10 @@ P a r a m e t e r s :
 
 * namespace: The namespace whose elements and attributes are to be removed.
 
-* copy-children: If true, the children of matching elements will be copied.
+* copy_children: If true, the children of matching elements will be copied.
   Otherwise, they will be erased, too. Default is 'true'.
 
-* remove-attributes: This parameter controls, if attributes are removed, too.
+* remove_attributes: This parameter controls, if attributes are removed, too.
   Attributes are per definitionem in the empty namespace, as long as they are
   not explicitly, that is, with a prefix, bound to a namespace. That means,
   that if elements in the empty namespace should be removed, most of the
@@ -31,3 +31,10 @@ B e h a v i o u r :
 * If the root element is bound to the namespace, that should be removed, the
   result could be invalid XML. Therefore the whole document is embedded in a
   new root element <root /> in the empty namespace.
+
+L i c e n s e :
+===============
+
+The tools are published under an MIT-style license and the GPL v2. Choose at
+your liking.
+
