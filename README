@@ -1,0 +1,33 @@
+
+                                     rm-ns
+
+                                remove namespace
+
+These files provide possibilities to remove elements and attributes from an XML
+document, that are in a certain, defined namespace.
+
+Consider you have an XHTML document with math formulas in the MathML namespace.
+For some reason, you want the formulas stripped out of the file. Nothing
+simpler than that! Use the tools provided by this project and enjoy.
+
+P a r a m e t e r s :
+=====================
+
+* namespace: The namespace whose elements and attributes are to be removed.
+
+* copy-children: If true, the children of matching elements will be copied.
+  Otherwise, they will be erased, too. Default is 'true'.
+
+* remove-attributes: This parameter controls, if attributes are removed, too.
+  Attributes are per definitionem in the empty namespace, as long as they are
+  not explicitly, that is, with a prefix, bound to a namespace. That means,
+  that if elements in the empty namespace should be removed, most of the
+  attributes of other elements will vanish as well. This parameter allows to
+  address this problem. Default is 'true'.
+
+B e h a v i o u r :
+===================
+
+* If the root element is bound to the namespace, that should be removed, the
+  result could be invalid XML. Therefore the whole document is embedded in a
+  new root element <root /> in the empty namespace.

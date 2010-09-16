@@ -5,10 +5,10 @@
   <param name="namespace" select="''" />
 
   <!-- whether children of a matching element should be processed further or deleted -->
-  <param name="copy-children" select="false()" />
+  <param name="copy-children" select="true()" />
 
-  <!-- whether attributes should be erased, when the namespace is the empty one -->
-  <param name="erase-attributes-in-empty-ns" select="false()" />
+  <!-- whether attributes should be erased, too. Useful especially for the empty namespace case. -->
+  <param name="remove-attributes" select="true()" />
 
   <!--
     ROOT
@@ -54,13 +54,12 @@
     ATTRIBUTES
 
     * copy, if namespace doesn't match $namespace
-    * copy, if $namespace is the empty one, but $erase-attributes-in-empty-ns is false
+    * copy, if $remove-attributes is false
     * otherwise do nothing (delete attribute)
     -->
   <template match="@*">
     <choose>
-      <when test="($namespace = '' and namespace-uri() = '' and not($erase-attributes-in-empty-ns)) or
-                  namespace-uri() != $namespace">
+      <when test="$namespace != namespace-uri() or not($remove-attributes)">
         <copy />
       </when>
       <otherwise />
