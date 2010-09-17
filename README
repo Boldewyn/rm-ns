@@ -10,6 +10,10 @@ Consider you have an XHTML document with math formulas in the MathML namespace.
 For some reason, you want the formulas stripped out of the file. Nothing
 simpler than that! Use the tools provided by this project and enjoy.
 
+The package contains three different implementations, that all work the same
+way. You can use any of the three XSLT, native Javascript or native Python
+implementation independently.
+
 P a r a m e t e r s :
 =====================
 
