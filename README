@@ -95,6 +95,18 @@ JS version:
 
   Presto! Namespace removed.
 
+
+Native Python version:
+
+  >>> from rm_ns import remove_namespace
+  >>> from xml.dom.minidom import parse
+  >>> source = parse('source.xml')
+  >>> remove_namespace("urn:my-unwanted-namespace", source)
+  >>> out = open('output.xml', 'w')
+  >>> out.write(source.toxml())
+  >>> out.close()
+
+
 L i c e n s e :
 ===============
 
