@@ -1,16 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" ?>
 <!--
   rm-ns
   remove namespace
 
-  Tool to remove elements and attributes of a certain namespace
+  Tool to remove all nodes of a certain namespace
   see http://github.com/Boldewyn/rm-ns
   Copyright (c) 2010 Manuel Strehl
   Dual licensed under the MIT or GPL Version 2 licenses.
   -->
 <stylesheet version="1.0" xmlns="http://www.w3.org/1999/XSL/Transform">
 
-  <!-- The namespace whose elements/attributes should be erased -->
+  <!-- The namespace whose nodes should be erased -->
   <param name="namespace" select="''" />
 
   <!-- whether children of a matching element should be processed further or deleted -->
@@ -27,7 +27,10 @@
     -->
   <template match="/">
     <choose>
-      <when test="namespace-uri(*[1]) = $namespace">
+      <when test="namespace-uri(*[1]) = $namespace and (
+                    (count(*/*) = 1 and namespace-uri(*/*[1]) = $namespace) or
+                    count(*/*) != 1
+                  )">
         <message>
           WARNING! The root node is targeted for deletion. Wrapping the remaining document.
         </message>
