@@ -26,22 +26,33 @@
       element <root /> in the empty namespace
     -->
   <template match="/">
+    <apply-templates mode="findroot" />
+  </template>
+
+  <!--
+    Search the first element, that should not be stripped
+  -->
+  <template match="*" mode="findroot">
     <choose>
-      <when test="namespace-uri(*[1]) = $namespace and (
-                    (count(*/*) = 1 and namespace-uri(*/*[1]) = $namespace) or
-                    count(*/*) != 1
-                  )">
+      <when test="namespace-uri(.) != $namespace">
+        <apply-templates select="." />
+      </when>
+      <when test="not(normalize-space(child::text())) and count(./*) = 1">
+        <apply-templates select="*" mode="findroot" />
+      </when>
+      <otherwise>
         <message>
           WARNING! The root node is targeted for deletion. Wrapping the remaining document.
         </message>
         <root xmlns="">
           <apply-templates xmlns="http://www.w3.org/1999/XSL/Transform" />
         </root>
-      </when>
-      <otherwise>
-        <apply-templates />
       </otherwise>
     </choose>
+  </template>
+
+  <template match="text()|comment()|processing-instruction()" mode="findroot">
+    <copy />
   </template>
 
   <!--
@@ -55,11 +66,11 @@
     <choose>
       <when test="namespace-uri() != $namespace">
         <copy>
-          <apply-templates select="*|@*|text()" />
+          <apply-templates select="*|@*|text()|processing-instruction()|comment()" />
         </copy>
       </when>
       <when test="$copy_children">
-        <apply-templates select="*|text()" />
+        <apply-templates select="*|text()|processing-instruction()|comment()" />
       </when>
       <otherwise />
     </choose>

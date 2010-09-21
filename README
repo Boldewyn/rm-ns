@@ -33,8 +33,9 @@ B e h a v i o u r :
 ===================
 
 * If the root element is bound to the namespace, that should be removed, the
-  result could be invalid XML. Therefore the whole document is embedded in a
-  new root element <root /> in the empty namespace.
+  result could be invalid XML. Therefore in the XSLT version in this case the
+  whole document is embedded in a new root element <root /> in the empty
+  namespace and a warning message is issued.
 
 H o w   t o   D e p l o y :
 ===========================
