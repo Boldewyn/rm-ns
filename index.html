@@ -8,28 +8,34 @@
     <style>
 body {
   font: 100.01%/1.333 Arial,sans-serif;
+  color: #333;
   margin: 0;
   background: url(static/body.png) repeat;
+}
+#content {
+  width: 780px;
+  margin: 0 auto;
 }
 hgroup {
   padding: 1em 0;
   border-bottom: 2px groove #555;
+  margin: 0 0 3em;
 }
 hgroup h1 {
-  margin: 0 0 .44333em;
+  margin: .44333em 0;
   font: bold 3em/.44333 Impact,sans-serif;
   text-align: center;
-  color: #333;
+  text-shadow: 0 1px #cacfca, 0 -1px #000;
 }
 hgroup h2 {
   margin: 0 0 .60606em;
   font: 2.2em/.60606 Impact,sans-serif;
   text-align: center;
-  color: #333;
+  text-shadow: 0 1px #cacfca, 0 -1px #000;
 }
 hgroup h3 {
-  margin: -.666em 0 0;
-  color: #474;
+  margin: -1em 0 0 6em;
+  color: #fff;
   font: 150% Lobster,Georgia,serif;
   letter-spacing: .02em;
   text-align: center;
@@ -37,20 +43,42 @@ hgroup h3 {
   -webkit-transform: rotate(-7deg);
   -o-transform: rotate(-7deg);
   transform: rotate(-7deg);
-  text-shadow: #fff 1px 1px 0px;
+  text-shadow: #474 1px 1px 0px;
+}
+section {
+  border: 1px solid #474;
+  -moz-border-radius: 3em;
+  -webkit-border-radius: 3em;
+  -o-border-radius: 3em;
+  border-radius: 3em;
+  background: #eee;
+  padding: 3em;
+  margin: 0 0 3em;
+}
+p {
+  margin: 0;
+}
+p + p {
+  text-indent: 1.33em;
 }
     </style>
   </head>
   <body>
-    <div>
+    <div id="content">
       <hgroup>
         <h1>rm-ns</h1>
         <h2>The namespace remover</h2>
         <h3>
-          Supporting the world in removing namespaced elements since 2010
+          Removing Namespaced Elements since 2010
         </h3>
       </hgroup>
+      <section>
+        <p>
+          Well, I'm not yet finished with this page. Please see the
+          <a href="http://github.com/Boldewyn/rm-ns/blob/master/README">README</a>
+          meanwhile.
+        </p>
+      </section>
     </div>
   </body>
 </html>
-
