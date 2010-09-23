@@ -1,24 +1,5 @@
 @charset "UTF-8";
 
-@font-face {
-  font-family: 'Lobster';
-  font-style: normal;
-  font-weight: normal;
-  src: local('Lobster'), url('http://themes.googleusercontent.com/font?kit=9LpJGtNuM1D8FAZ2BkJH2Q') format('truetype');
-}
-@font-face {
-  font-family: 'PT Sans';
-  font-style: italic;
-  font-weight: normal;
-  src: local('PT Sans Italic'), local('PTSans-Italic'), url('http://themes.googleusercontent.com/font?kit=yls9EYWOd496wiu7qzfgNg') format('truetype');
-}
-@font-face {
-  font-family: 'PT Sans';
-  font-style: normal;
-  font-weight: normal;
-  src: local('PT Sans'), local('PTSans-Regular'), url('http://themes.googleusercontent.com/font?kit=UFoEz2uiuMypUGZL1NKoeg') format('truetype');
-}
-
 hgroup, section {
   display: block;
 }
