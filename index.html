@@ -2,69 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" type="text/css" href="style.css" media="all" />
-    <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css' />
-    <title>rm-ns ­ The namespace remover</title>
-    <style>
-hgroup, section {
-  display: block;
-}
-body {
-  font: 100.01%/1.333 Arial,sans-serif;
-  color: #333;
-  margin: 0;
-  background: #B0B8B0 url(static/body.png) repeat;
-}
-#content {
-  width: 780px;
-  margin: 0 auto;
-}
-hgroup {
-  padding: 1em 0 3em;
-  border-bottom: 2px groove #7a7;
-  margin: 0 0 3em;
-}
-hgroup h1 {
-  margin: .44333em 0;
-  font: bold 3em/.44333 Impact,sans-serif;
-  text-align: center;
-  text-shadow: 0 1px #cacfca, 0 -1px #000;
-}
-hgroup h2 {
-  margin: 0 0 .60606em;
-  font: 2.2em/.60606 Impact,sans-serif;
-  text-align: center;
-  text-shadow: 0 1px #cacfca, 0 -1px #000;
-}
-hgroup h3 {
-  margin: -1em 0 0 6em;
-  color: #fff;
-  font: 150% Lobster,Georgia,serif;
-  letter-spacing: .02em;
-  text-align: center;
-  -moz-transform: rotate(-7deg);
-  -webkit-transform: rotate(-7deg);
-  -o-transform: rotate(-7deg);
-  transform: rotate(-7deg);
-  text-shadow: #474 1px 1px 0px;
-}
-section {
-  border: 1px solid #474;
-  -moz-border-radius: .5em;
-  -webkit-border-radius: .5em;
-  -o-border-radius: .5em;
-  border-radius: .5em;
-  background: #eee;
-  padding: 3em;
-  margin: 0 0 3em;
-}
-p {
-  margin: 0;
-}
-p + p {
-  text-indent: 1.33em;
-}
-    </style>
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lobster" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic&subset=latin" />
+    <link rel="stylesheet" type="text/css" href="static/style.css" />
+    <title>rm-ns — The namespace remover</title>
   </head>
   <body>
     <div id="content">
@@ -77,10 +18,228 @@ p + p {
       </hgroup>
       <section>
         <p>
-          Well, I'm not yet finished with this page. Please see the
-          <a href="http://github.com/Boldewyn/rm-ns/blob/master/README">README</a>
-          meanwhile.
+          <em>Have you ever wanted to remove all nodes of a certain namespace from your XML documents?</em>
+          For example, you receive XML from an AJAX request full of needless stuff. Or you want to easily remove
+          the SOAP envelope. Or you get an “HTML” file, that was exported from Microsoft Word and you need to get
+          rid fast of that silly <code>&lt;o:p/></code> stuff.
         </p>
+        <p>
+          Then <em>rm-ns</em> is for you. It’s a combination detergent and Swiss Army Knife for exactly this purpose:
+          removing stuff from unwanted namespaces. And the good news is: You have the choice of weapon. <em>rm-ns</em>
+          is implemented in (quite exactly) the same way in three languages: <em>XSLT</em>, <em>Python</em> and
+          <em>Javascript</em>.
+        </p>
+      </section>
+      <section>
+        <h1>Example</h1>
+        <p>
+          Oh, I love examples! I assume, that you use the XSLT version with <a href="http://saxon.sourceforge.net">saxon</a>,
+          then the code does the following:
+        </p>
+        <h2>Input document</h2>
+        <pre><span class="el">&lt;html</span> <span class="at">xmlns=&quot;http://www.w3.org/1999/xhtml&quot;</span>
+      <span class="at" style="color:#A42">xmlns:x=&quot;http://example.com&quot;</span><span class="el">&gt;</span>
+  <span class="el">&lt;head&gt;</span>
+    <span class="el">&lt;title&gt;</span>My Beautiful Markup<span class="el">&lt;/title&gt;</span>
+  <span class="el">&lt;/head&gt;</span>
+  <span class="el">&lt;body&gt;</span>
+    <span class="el" style="color:#A42">&lt;x:remove-me&gt;</span>
+      <span class="el">&lt;p&gt;</span>Help! I’m trapped in a hostile element!<span class="el">&lt;/p&gt;</span>
+    <span class="el" style="color:#A42">&lt;/x:remove-me&gt;</span>
+  <span class="el">&lt;/body&gt;</span>
+<span class="el">&lt;/html&gt;</span></pre>
+        <h2>Command line</h2>
+        <pre>$ saxon -s:input.xml -xsl:rm-ns.xsl -o:output.xml namespace='http://example.com'</pre>
+        <h2>The Output</h2>
+        <pre><span class="el">&lt;html</span> <span class="at">xmlns=&quot;http://www.w3.org/1999/xhtml&quot;</span>
+      <span class="at" style="color:#A42">xmlns:x=&quot;http://example.com&quot;</span><span class="el">&gt;</span>
+  <span class="el">&lt;head&gt;</span>
+    <span class="el">&lt;title&gt;</span>My Beautiful Markup<span class="el">&lt;/title&gt;</span>
+  <span class="el">&lt;/head&gt;</span>
+  <span class="el">&lt;body&gt;</span>
+    
+      <span class="el">&lt;p&gt;</span>Help! I’m trapped in a hostile element!<span class="el">&lt;/p&gt;</span>
+    
+  <span class="el">&lt;/body&gt;</span>
+<span class="el">&lt;/html&gt;</span></pre>
+        <p>
+          If you had specified <em>this</em> instead:
+        </p>
+        <pre>$ saxon -s:input.xml -xsl:rm-ns.xsl -o:output.xml namespace='http://example.com' \
+        <strong>?copy_children=false()</strong></pre>
+        <p>the output would look like this:</p>
+        <pre><span class="el">&lt;html</span> <span class="at">xmlns=&quot;http://www.w3.org/1999/xhtml&quot;</span>
+      <span class="at" style="color:#A42">xmlns:x=&quot;http://example.com&quot;</span><span class="el">&gt;</span>
+  <span class="el">&lt;head&gt;</span>
+    <span class="el">&lt;title&gt;</span>My Beautiful Markup<span class="el">&lt;/title&gt;</span>
+  <span class="el">&lt;/head&gt;</span>
+  <span class="el">&lt;body&gt;</span>
+    
+
+  <span class="el">&lt;/body&gt;</span>
+<span class="el">&lt;/html&gt;</span></pre>
+      </section>
+      <section>
+        <h1>Download the Code</h1>
+        <p>
+          You can find the complete source at <a href="http://github.com/Boldewyn/rm-ns">GitHub</a>. Specific downloads
+          are available, too:
+        </p>
+        <ul>
+          <li><a href="http://github.com/Boldewyn/rm-ns/zipball/v0.9">Download version 0.9</a> (zip) of rm-ns</li>
+          <li>Clone the Git repository: <a href="git://github.com/Boldewyn/rm-ns.git">git://github.com/Boldewyn/rm-ns.git</a></li>
+        </ul>
+      </section>
+      <section>
+        <h1>Known Issues</h1>
+        <ul>
+          <li>
+            At this time, the namespace axes are not yet respected, hence namespace declarations themselves will
+            most probably live on.
+          </li>
+          <li>
+            If you use namespaced values in attributes, for example XPath syntax, the attribute values are <em>not</em>
+            changed automatically.
+          </li>
+          <li>
+            The Javascript and Python versions do not yet support the removal of the root node. (That is, they will
+            remove it happily, but die, if the resulting document is erroneous.)
+          </li>
+        </ul>
+      </section>
+      <section>
+        <h1>Copyright <span style="font-family:Lobster,Impact,sans-serif">&amp;</span> License</h1>
+        <p>
+          Copyright © 2010 Manuel Strehl. All rights reserved.
+        </p>
+        <p>
+          The code is dual licensed under an MIT-style and the Gnu Public License, version 2. You are free to
+          choose any of the two for your project. In most cases, you can just use the files, as long as the
+          copyright statement stays intact.
+        </p>
+      </section>
+      <section>
+        <h1>The Official README</h1>
+        <pre>
+                                     rm-ns
+
+                                remove namespace
+
+These files provide possibilities to remove elements and attributes from an XML
+document, that are in a certain, defined namespace.
+
+Consider you have an XHTML document with math formulas in the MathML namespace.
+For some reason, you want the formulas stripped out of the file. Nothing
+simpler than that! Use the tools provided by this project and enjoy.
+
+The package contains three different implementations, that all work the same
+way. You can use any of the three XSLT, native Javascript or native Python
+implementation independently.
+
+P a r a m e t e r s :
+=====================
+
+* namespace: The namespace whose elements and attributes are to be removed.
+
+* copy_children: If true, the children of matching elements will be copied.
+  Otherwise, they will be erased, too. Default is &apos;true&apos;.
+
+* remove_attributes: This parameter controls, if attributes are removed, too.
+  Attributes are per definitionem in the empty namespace, as long as they are
+  not explicitly, that is, with a prefix, bound to a namespace. That means,
+  that if elements in the empty namespace should be removed, most of the
+  attributes of other elements will vanish as well. This parameter allows to
+  address this problem. Default is &apos;true&apos;.
+
+B e h a v i o u r :
+===================
+
+* If the root element is bound to the namespace, that should be removed, the
+  result could be invalid XML. Therefore in the XSLT version in this case the
+  whole document is embedded in a new root element &lt;root /&gt; in the empty
+  namespace and a warning message is issued.
+
+H o w   t o   D e p l o y :
+===========================
+
+XSLT version:
+  a) in Firefox: Add the following lines to your XML file:
+
+     &lt;?xslt-param name=&quot;namespace&quot; value=&quot;urn:my-unwanted-namespace&quot;?&gt;
+     &lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;rm-ns.xsl&quot;?&gt;
+
+     (other browsers don&apos;t support &lt;?xslt-param ?&gt;, you have to touch
+     rm-ns.xsl itself there.)
+
+  b) via a command line XSLT processor:
+
+     $ saxon -s:source.xml -xsl:rm-ns.xsl -o:out.xml \
+       namespace=&apos;urn:my-unwanted-namespace&apos;
+
+     $ xalan -IN source.xml -XSL rm-ns.xsl -OUT out.xml -PARAM namespace \
+       &apos;urn:my-unwanted-namespace&apos;
+
+  c) inside PHP:
+
+     &lt;?php
+     $xsl = new DOMDocument;
+     $xsl-&gt;load(&apos;rm-ns.xsl&apos;);
+     $proc = new XSLTProcessor;
+     $proc-&gt;importStyleSheet($xsl);
+
+     $xml = new DOMDocument;
+     $xml-&gt;load(&apos;source.xml&apos;);
+     $proc-&gt;setParameter(&apos;&apos;, &apos;namespace&apos;, &apos;urn:my-unwanted-namespace&apos;);
+     $proc-&gt;transformToURI($xml, &apos;file:///tmp/output.xml&apos;);
+     ?&gt;
+
+  d) in Python with libxml2 and libxslt bindings:
+
+     #! /usr/bin/env python
+
+     import libxml2, libxslt
+
+     styledoc = libxml2.parseFile(&quot;rm-ns.xsl&quot;)
+     style = libxslt.parseStylesheetDoc(styledoc)
+     doc = libxml2.parseFile(&apos;source.xml&apos;)
+     result = style.applyStylesheet(doc, {&quot;namespace&quot;:
+                                          &quot;&apos;urn:my-unwanted-namespace&apos;&quot;})
+
+     out = open(&apos;output.xml&apos;, &apos;w&apos;)
+     out.write(result.serialize())
+
+     style.freeStylesheet()
+     doc.freeDoc()
+     result.freeDoc()
+     out.close()
+
+
+JS version:
+  Add the following lines to your XML file:
+
+  &lt;script type=&quot;text/javascript&quot; src=&quot;rm-ns.js&quot;&gt;&lt;/script&gt;
+  &lt;script type=&quot;text/javascript&quot;&gt;remove_namespace(&quot;urn:my-unwanted-namespace&quot;);&lt;/script&gt;
+
+  Presto! Namespace removed.
+
+
+Native Python version:
+
+  &gt;&gt;&gt; from rm_ns import remove_namespace
+  &gt;&gt;&gt; from xml.dom.minidom import parse
+  &gt;&gt;&gt; source = parse(&apos;source.xml&apos;)
+  &gt;&gt;&gt; remove_namespace(&quot;urn:my-unwanted-namespace&quot;, source)
+  &gt;&gt;&gt; out = open(&apos;output.xml&apos;, &apos;w&apos;)
+  &gt;&gt;&gt; out.write(source.toxml())
+  &gt;&gt;&gt; out.close()
+
+
+L i c e n s e :
+===============
+
+The tools are published under an MIT-style license and the GPL v2. Choose at
+your liking.
+        </pre>
       </section>
     </div>
   </body>

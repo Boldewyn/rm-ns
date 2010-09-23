@@ -1,0 +1,91 @@
+hgroup, section {
+  display: block;
+}
+body {
+  font: 100.01%/1.333 "PT Sans",Arial,sans-serif;
+  color: #333;
+  margin: 0;
+  background: #B0B8B0 url(body.png) repeat;
+}
+pre, code {
+  font: normal .89em/1.5 "DejaVu Sans Mono","Courier New",monospace;
+}
+#content {
+  width: 780px;
+  margin: 0 auto;
+}
+hgroup {
+  padding: 1em 0 3em;
+  border-bottom: 2px groove #7a7;
+  margin: 0 0 1em;
+}
+hgroup h1 {
+  margin: .44333em 0;
+  font: bold 3em/.44333 Impact,sans-serif;
+  text-align: center;
+  text-shadow: 0 1px #cacfca, 0 -1px #000;
+}
+hgroup h2 {
+  margin: 0 0 .60606em;
+  font: 2.2em/.60606 Impact,sans-serif;
+  text-align: center;
+  text-shadow: 0 1px #cacfca, 0 -1px #000;
+}
+hgroup h3 {
+  margin: -1em 0 0 6em;
+  color: #fff;
+  font: 150% Lobster,Georgia,serif;
+  letter-spacing: .02em;
+  text-align: center;
+  -moz-transform: rotate(-7deg);
+  -webkit-transform: rotate(-7deg);
+  -o-transform: rotate(-7deg);
+  transform: rotate(-7deg);
+  text-shadow: #474 1px 1px 0px;
+}
+section {
+  border: 1px solid #474;
+  -moz-border-radius: .5em;
+  -webkit-border-radius: .5em;
+  -o-border-radius: .5em;
+  border-radius: .5em;
+  background: #eee;
+  padding: 1em;
+  margin: 0 0 1em;
+}
+section h1 {
+  margin: .2em 0 .60606em;
+  font: normal 2.2em/.60606 Impact,sans-serif;
+}
+section h2 {
+  margin: .888em 0;
+  font: normal 1.5em/.888 Impact,sans-serif;
+}
+p {
+  margin: 0;
+}
+p + p {
+  text-indent: 1.33em;
+}
+pre {
+  margin: 0 0 1.333em;
+  padding: 1.333em;
+  background: white;
+}
+ul, ol {
+  margin: 0;
+  padding: 0;
+}
+ul+ul,p+ul,ol+ol,p+ol,ul+ol,ol+ul {
+  margin-top: 1.333em;
+}
+li {
+  margin: 0 0 1.333em 1.333em;
+  padding: 0;
+}
+.el {
+  color: #050;
+}
+.at {
+  color: #070;
+}
