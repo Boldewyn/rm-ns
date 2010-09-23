@@ -20,6 +20,7 @@ hgroup {
   padding: 1em 0 3em;
   border-bottom: 2px groove #7a7;
   margin: 0 0 1em;
+  background: transparent url(header.png) no-repeat center top;
 }
 hgroup h1 {
   margin: .44333em 0;
