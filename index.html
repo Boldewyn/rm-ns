@@ -5,8 +5,6 @@
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lobster" />
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic&subset=latin" />
     <link rel="stylesheet" type="text/css" href="static/style.css" />
     <title>rm-ns — The namespace remover</title>
   </head>
@@ -41,21 +39,21 @@
         </p>
         <h2>Input document</h2>
         <pre><span class="el">&lt;html</span> <span class="at">xmlns=&quot;http://www.w3.org/1999/xhtml&quot;</span>
-      <span class="at" style="color:#A42">xmlns:x=&quot;http://example.com&quot;</span><span class="el">&gt;</span>
+      <span class="at hi">xmlns:x=&quot;http://example.com&quot;</span><span class="el">&gt;</span>
   <span class="el">&lt;head&gt;</span>
     <span class="el">&lt;title&gt;</span>My Beautiful Markup<span class="el">&lt;/title&gt;</span>
   <span class="el">&lt;/head&gt;</span>
   <span class="el">&lt;body&gt;</span>
-    <span class="el" style="color:#A42">&lt;x:remove-me&gt;</span>
+    <span class="el hi">&lt;x:remove-me&gt;</span>
       <span class="el">&lt;p&gt;</span>Help! I’m trapped in a hostile element!<span class="el">&lt;/p&gt;</span>
-    <span class="el" style="color:#A42">&lt;/x:remove-me&gt;</span>
+    <span class="el hi">&lt;/x:remove-me&gt;</span>
   <span class="el">&lt;/body&gt;</span>
 <span class="el">&lt;/html&gt;</span></pre>
         <h2>Command line</h2>
         <pre>$ saxon -s:input.xml -xsl:rm-ns.xsl -o:output.xml namespace='http://example.com'</pre>
         <h2>The Output</h2>
         <pre><span class="el">&lt;html</span> <span class="at">xmlns=&quot;http://www.w3.org/1999/xhtml&quot;</span>
-      <span class="at" style="color:#A42">xmlns:x=&quot;http://example.com&quot;</span><span class="el">&gt;</span>
+      <span class="at hi">xmlns:x=&quot;http://example.com&quot;</span><span class="el">&gt;</span>
   <span class="el">&lt;head&gt;</span>
     <span class="el">&lt;title&gt;</span>My Beautiful Markup<span class="el">&lt;/title&gt;</span>
   <span class="el">&lt;/head&gt;</span>
@@ -72,7 +70,7 @@
         <strong>?copy_children=false()</strong></pre>
         <p>the output would look like this:</p>
         <pre><span class="el">&lt;html</span> <span class="at">xmlns=&quot;http://www.w3.org/1999/xhtml&quot;</span>
-      <span class="at" style="color:#A42">xmlns:x=&quot;http://example.com&quot;</span><span class="el">&gt;</span>
+      <span class="at hi">xmlns:x=&quot;http://example.com&quot;</span><span class="el">&gt;</span>
   <span class="el">&lt;head&gt;</span>
     <span class="el">&lt;title&gt;</span>My Beautiful Markup<span class="el">&lt;/title&gt;</span>
   <span class="el">&lt;/head&gt;</span>
@@ -111,7 +109,7 @@
         </ul>
       </section>
       <section>
-        <h1>Copyright <span style="font-family:Lobster,Impact,sans-serif">&amp;</span> License</h1>
+        <h1>Copyright <span class="amp">&amp;</span> License</h1>
         <p>
           Copyright © 2010 Manuel Strehl. All rights reserved.
         </p>
@@ -145,14 +143,14 @@ P a r a m e t e r s :
 * namespace: The namespace whose elements and attributes are to be removed.
 
 * copy_children: If true, the children of matching elements will be copied.
-  Otherwise, they will be erased, too. Default is &apos;true&apos;.
+  Otherwise, they will be erased, too. Default is 'true'.
 
 * remove_attributes: This parameter controls, if attributes are removed, too.
   Attributes are per definitionem in the empty namespace, as long as they are
   not explicitly, that is, with a prefix, bound to a namespace. That means,
   that if elements in the empty namespace should be removed, most of the
   attributes of other elements will vanish as well. This parameter allows to
-  address this problem. Default is &apos;true&apos;.
+  address this problem. Default is 'true'.
 
 B e h a v i o u r :
 ===================
@@ -171,29 +169,29 @@ XSLT version:
      &lt;?xslt-param name=&quot;namespace&quot; value=&quot;urn:my-unwanted-namespace&quot;?&gt;
      &lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;rm-ns.xsl&quot;?&gt;
 
-     (other browsers don&apos;t support &lt;?xslt-param ?&gt;, you have to touch
+     (other browsers don't support &lt;?xslt-param ?&gt;, you have to touch
      rm-ns.xsl itself there.)
 
   b) via a command line XSLT processor:
 
      $ saxon -s:source.xml -xsl:rm-ns.xsl -o:out.xml \
-       namespace=&apos;urn:my-unwanted-namespace&apos;
+       namespace='urn:my-unwanted-namespace'
 
      $ xalan -IN source.xml -XSL rm-ns.xsl -OUT out.xml -PARAM namespace \
-       &apos;urn:my-unwanted-namespace&apos;
+       'urn:my-unwanted-namespace'
 
   c) inside PHP:
 
      &lt;?php
      $xsl = new DOMDocument;
-     $xsl-&gt;load(&apos;rm-ns.xsl&apos;);
+     $xsl-&gt;load('rm-ns.xsl');
      $proc = new XSLTProcessor;
      $proc-&gt;importStyleSheet($xsl);
 
      $xml = new DOMDocument;
-     $xml-&gt;load(&apos;source.xml&apos;);
-     $proc-&gt;setParameter(&apos;&apos;, &apos;namespace&apos;, &apos;urn:my-unwanted-namespace&apos;);
-     $proc-&gt;transformToURI($xml, &apos;file:///tmp/output.xml&apos;);
+     $xml-&gt;load('source.xml');
+     $proc-&gt;setParameter('', 'namespace', 'urn:my-unwanted-namespace');
+     $proc-&gt;transformToURI($xml, 'file:///tmp/output.xml');
      ?&gt;
 
   d) in Python with libxml2 and libxslt bindings:
@@ -204,11 +202,11 @@ XSLT version:
 
      styledoc = libxml2.parseFile(&quot;rm-ns.xsl&quot;)
      style = libxslt.parseStylesheetDoc(styledoc)
-     doc = libxml2.parseFile(&apos;source.xml&apos;)
+     doc = libxml2.parseFile('source.xml')
      result = style.applyStylesheet(doc, {&quot;namespace&quot;:
-                                          &quot;&apos;urn:my-unwanted-namespace&apos;&quot;})
+                                          &quot;'urn:my-unwanted-namespace'&quot;})
 
-     out = open(&apos;output.xml&apos;, &apos;w&apos;)
+     out = open('output.xml', 'w')
      out.write(result.serialize())
 
      style.freeStylesheet()
@@ -230,9 +228,9 @@ Native Python version:
 
   &gt;&gt;&gt; from rm_ns import remove_namespace
   &gt;&gt;&gt; from xml.dom.minidom import parse
-  &gt;&gt;&gt; source = parse(&apos;source.xml&apos;)
+  &gt;&gt;&gt; source = parse('source.xml')
   &gt;&gt;&gt; remove_namespace(&quot;urn:my-unwanted-namespace&quot;, source)
-  &gt;&gt;&gt; out = open(&apos;output.xml&apos;, &apos;w&apos;)
+  &gt;&gt;&gt; out = open('output.xml', 'w')
   &gt;&gt;&gt; out.write(source.toxml())
   &gt;&gt;&gt; out.close()
 
