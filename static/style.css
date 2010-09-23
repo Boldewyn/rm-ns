@@ -70,7 +70,7 @@ p + p {
   text-indent: 1.33em;
 }
 pre {
-  margin: 0 0 1.333em;
+  margin: 0;
   padding: 1.333em;
   background: white;
 }
@@ -78,12 +78,29 @@ ul, ol {
   margin: 0;
   padding: 0;
 }
-ul+ul,p+ul,ol+ol,p+ol,ul+ol,ol+ul {
+ul+ul,p+ul,ol+ul,pre+ul,
+ul+ol,p+ol,ol+ol,pre+ol,
+ul+pre,p+pre,ol+pre,pre+pre,
+ul+p,ol+p,pre+p {
   margin-top: 1.333em;
 }
 li {
-  margin: 0 0 1.333em 1.333em;
+  margin: 0 0 0 1.333em;
   padding: 0;
+}
+li+li {
+  margin-top: 1.333em;
+}
+a {
+  color: #070;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 119, 0, .3);
+}
+a:hover, a:focus {
+  color: #0f0;
+  border-bottom-color: #0f0;
+  outline: none;
+  background: white;
 }
 .el {
   color: #050;
